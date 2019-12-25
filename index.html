@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JQuery ScrollTop案例</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    body {
+      height: 4000px;
+    }
+
+    h3 {
+      color: mediumpurple;
+      width: 600px;
+      height: 50px;
+      line-height: 50px;
+      margin: 10px auto;
+      text-align: center;
+    }
+
+    p {
+      width: 450px;
+      height: auto;
+      background-color: rgb(240, 230, 255);
+      line-height: 20px;
+      padding: 10px 20px;
+      border: 1px solid mediumpurple;
+      margin: 20px auto;
+      text-align: center;
+    }
+
+    u {
+      background-color: lavender;
+      margin: 0 auto;
+      display: inline-block;
+      color: darkblue;
+    }
+
+    .actGotop {
+      position: fixed;
+      bottom: 50px;
+      right: 50px;
+      width: 150px;
+      height: 195px;
+      display: none;
+      z-index: 100;
+    }
+
+    .actGotop i {
+      width: 150px;
+      height: 195px;
+      display: inline-block;
+      background: url(./img/gotop.png) no-repeat;
+    }
+
+    .actGotop i:hover {
+      width: 150px;
+      height: 195px;
+      background: url(./img/gotop.gif) no-repeat;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>小火箭返航案例：</h3>
+
+  <u>
+    //當頁面滾動後就讓小火箭現身 <br>
+    //若滾動高度為0 讓小火箭隱藏<br>
+    //點擊小火箭後讓滾動條返回頂部<br>
+    //為了防止拼命點擊後無法往下的情況 記得加stop
+  </u>
+
+  <p>
+    在JS中scrollTop屬性必須通過body或documentElement獲取<br>
+    window是沒有這個屬性的 所以在JQ中若要修改scrollTop <br> 
+    就必須用body標籤或html標籤才能執行 (這是兼容性的問題) <br>
+    ＊在JS中window可代表scrollTop的屬性為pageYOffset <br>
+    ＊但是此屬性僅供讀取使用 並不能被設置及修改
+  </p>
+
+  <div class="actGotop"><i></i></div>
+
+</body>
+
+<script src="./jquery-1.12.4.js"></script>
+<script>
+  $(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop) {
+        $('.actGotop').fadeIn()
+        if ($(window).scrollTop() == 0) {
+          $('.actGotop').stop().fadeOut()
+        }
+      }
+    })
+
+    $('.actGotop').click(function () {
+      $('html,body').stop().animate({
+        'scrollTop': '0'
+      }, 1000)
+    })
+
+  })
+</script>
+
+</html>
